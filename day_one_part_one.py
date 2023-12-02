@@ -1,12 +1,12 @@
-with open("dayoneinput.txt", "r") as fh:
-  puzzle_input = fh.read().strip()
+#with open("dayoneinput.txt", "r") as fh:
+  #puzzle_input = fh.read().strip()
 
 test_input = """1abc2
 pqr3stu8vwx
 a1b2c3d4e5f
 treb7uchet"""
 
-lines = puzzle_input.splitlines()
+lines = test_input.splitlines()
 number = ""
 list = []
 total = 0
@@ -22,3 +22,6 @@ for entry in list:
   total += int(entry)
 
 print(total)
+
+def test():
+  print("hello")

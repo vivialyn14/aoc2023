@@ -1,44 +1,35 @@
-#import regex as re
-import re
-
-pat = re.compile(r"(?=(one|two|three|four|five|six|seven|eight|nine|[1-9]))")
-
-with open("dayoneinput.txt", "r") as fh:
+with open("daytwoinput.txt", "r") as fh:
   puzzle_input = fh.read().strip()
+import math
 
-test_input = """two1nine
-eightwothree
-abcone2threexyz
-xtwone3four
-4nineeightseven2
-zoneight234
-7pqrstsixteen"""
+test_input = """Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
+Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
+Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
+Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"""
 
-lines = puzzle_input.splitlines()
+games = puzzle_input.splitlines()
 
-ref = {
-    "one": 1,
-    "two": 2,
-    "three": 3,
-    "four": 4,
-    "five": 5,
-    "six": 6,
-    "seven": 7,
-    "eight": 8,
-    "nine": 9
-}
+games = enumerate(games, start=1) 
 
-numerical = []
-final = []
+total = 0
 
-for line in lines:
-  for entry in list(pat.findall(line)):
-    numerical.append(ref.get(entry, entry))
-  final.append(str(numerical[0]) + str(numerical[-1]))
-  numerical = []
+for line_num, line_txt in games:
+  game_id = line_num
+  sessions = line_txt.split(":")[1]
+  possible_max = {
+    "red": 0,
+    "green": 0,
+    "blue": 0
+  }
 
-total = sum(int(char) for char in final) 
+  for session in sessions.split(";"):
+    colours = session.split(",")
+    for handful in colours:
+      cubes, colour = handful.strip().split(" ") 
+      if int(cubes) > possible_max.get(colour):
+        possible_max[colour] = int(cubes)
+  total += math.prod(possible_max.values())
 
 print(total)
-
 
