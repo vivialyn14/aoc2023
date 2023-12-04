@@ -1,5 +1,3 @@
-import math
-
 with open("daythreeinput.txt", "r") as fh:
   puzzle_input = fh.read().strip()
 
@@ -16,6 +14,7 @@ test_input = """
 .664.598.."""
 
 numbers = {}
+
 symbols = {}
 
 lines = puzzle_input.splitlines()
@@ -43,24 +42,18 @@ checks = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 check_set = set()
 
 answer = 0
-gear_ratios = set()
 
-for x_sym, y_sym in symbols: # look thru every entry in symbols dict (looks like this -> (0,3): *), 
-  if symbols.get((x_sym, y_sym)) == "*": # if we find a gear in the dictionary,
-    for x_check, y_check in checks: # check surrounding co-ordinates for adjacent numbers
-      check_me = (x_sym + x_check, y_sym + y_check) # check_me = the coordinate we want to check
-      if check_me in numbers: # if check_me is in the numbers dictionary
-        gear_ratios.add(int(numbers.get(check_me))) # add adjacent number to gear_ratios
-        print(gear_ratios)
-  if len(gear_ratios) == 2:
-    answer += math.prod(gear_ratios) # multiply numbers together and add to 'answer'
-    print(answer)
-    gear_ratios = set() # reset the set ready for next gear
-  else:
-    gear_ratios = set()
+for x_sym, y_sym in symbols: 
+  for x_check, y_check in checks:
+    check_me = (x_sym + x_check, y_sym + y_check)
+    if check_me in numbers:
+      if int(numbers.get(check_me)) + x_sym not in check_set:
+        answer += int(numbers.get(check_me))
+        check_set.add(int(numbers.get(check_me)) + x_sym)
+  check_set = set()
+
 
 print(answer)
-
 
 
 
