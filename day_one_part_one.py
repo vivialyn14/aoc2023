@@ -1,5 +1,5 @@
-#with open("dayoneinput.txt", "r") as fh:
-  #puzzle_input = fh.read().strip()
+with open("dayoneinput.txt", "r") as fh:
+  puzzle_input = fh.read().strip()
 
 test_input = """1abc2
 pqr3stu8vwx

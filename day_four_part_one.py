@@ -16,7 +16,7 @@ answer = 0 # sum of all cards
 for line in cards: # line is one big string
   winnings, my_numbers = map(str.split, line.split(":")[1].split("|")) # 2 lists
   for number in my_numbers: # go through each of my numbers
-    if number in winnings: # check if number is in winnings list
+    if number in winnings: # check if my number is in winnings list
       matches.append(number) # if yes, add number to check_list
     if len(matches) >= 1: # 1+ matches = ready to start doubling
       card_points = 1
