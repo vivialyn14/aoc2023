@@ -3,9 +3,6 @@ import re
 
 pat = re.compile(r"(?=(one|two|three|four|five|six|seven|eight|nine|[1-9]))")
 
-from part_one import test
-test()
-
 with open("dayoneinput.txt", "r") as fh:
   puzzle_input = fh.read().strip()
 
@@ -16,8 +13,6 @@ xtwone3four
 4nineeightseven2
 zoneight234
 7pqrstsixteen"""
-
-lines = puzzle_input.splitlines()
 
 ref = {
     "one": 1,
@@ -34,7 +29,7 @@ ref = {
 numerical = []
 final = []
 
-for line in lines:
+for line in puzzle_input.splitlines():
   for entry in list(pat.findall(line)):
     numerical.append(ref.get(entry, entry))
   final.append(str(numerical[0]) + str(numerical[-1]))
