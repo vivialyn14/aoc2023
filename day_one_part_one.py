@@ -8,20 +8,15 @@ treb7uchet"""
 
 lines = test_input.splitlines()
 number = ""
-list = []
-total = 0
+numbers = []
 
 for line in lines:
   for char in line:
     if char.isdigit():
       number += char
-  list.append(int(number[0] + (number[-1])))
+  numbers.append(int(number[0] + (number[-1])))
   number = ""
 
-for entry in list:
-  total += int(entry)
+total = sum(numbers)
 
 print(total)
-
-def test():
-  print("hello")
