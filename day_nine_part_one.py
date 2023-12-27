@@ -1,19 +1,17 @@
-from collections import deque
-
 with open("daynineinput.txt", "r") as fh:
   puzzle_input = fh.read().strip()
 
-test_input = """1 3 6 10 15 21
-0 3 6 9 12 15
+test_input = """0 3 6 9 12 15
+1 3 6 10 15 21
 10 13 16 21 30 45"""
 
 reports = puzzle_input.splitlines()
 
 d = []
 l = []
+answer = 0
 xindex = 1
 yindex = 1
-answer = 0
 
 for report in reports: # report = "0 3 6 9 12 15"
   d.append([int(num) for num in report.split()]) # report = [0, 3, 5, 6, 9, 12, 15]
@@ -27,17 +25,14 @@ for report in reports: # report = "0 3 6 9 12 15"
       xindex = 1 # reset index
   d = d[::-1] 
   d[0].append(0)
-  for item in d: # item = [0, 0, 0]#
-    try: #if yindex is in range...
-      deck = deque(d[yindex]) # deck = [2, 2, 2]
-      num = item[0] # num = 0, d[yindex][0] = 2
-      deck.appendleft(d[yindex][0] - num) # add 2 - 0 to the left of the [2, 2, 2] tier
-      d[yindex] = list(deck) # turn it back into a list
-      yindex += 1 # move the index along
-    except IndexError:
-      answer += d[-1][0]
+  for item in d:
+    try:
+      num = item[-1]
+      d[yindex].append(num + d[yindex][-1]) # add num to last num in next item, append to final item
+      yindex += 1
+    except IndexError: # if yindex is out of range then we're at the end of the list
+      answer += d[-1][-1]
       yindex = 1
   d = []
 
 print(answer)
-      
